@@ -1,0 +1,1 @@
+Images taken from https://github.com/hayeah/playing-cards-assets
