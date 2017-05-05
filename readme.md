@@ -1,3 +1,10 @@
+# Simple Magic
+
+## About Simple Magic
+
+Simple application showing off a cool magic trick.  Built with Laravel and Bootstrap.
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
