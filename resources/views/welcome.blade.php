@@ -81,16 +81,18 @@
             #card {
                 height: 0;
                 overflow: hidden;
-                min-width: 222px;
+                min-width: 242px;
             }
             #card img {
+                display: none;
                 background-color: white;
                 border-radius: 10px 10px 0 0;
+                padding: 10px;
                 transform: rotateX(50deg);
                 transform-origin: top;
             }
             .stripes {
-                width: 222px;
+                width: 242px;
                 margin: auto;
                 background: repeating-linear-gradient(
                     0deg,
@@ -140,7 +142,11 @@
                 <div class="deck-wrapper">
                     <div class="deck">
                         <div class="stripes" id="deck-top"></div>
-                        <div id="card"><img src="{{ asset('images/cards/png/red_joker.png') }}"></div>
+                        <div id="card">
+                            <?php foreach ($cards as $card): ?>
+                                <img src="{{ asset('images/cards/png/'.$card.'.png') }}">
+                            <?php endforeach; ?>
+                        </div>
                         <div class="stripes" id="deck-bottom"></div>
                     </div>
                 </div>
@@ -161,23 +167,23 @@
             </div>
 
             <div class="page-wrapper-cell hidden" id="bubble-sort-cell">
-                <p class="lead" id="instructions">Well, if that didn't work, maybe this will impress?</p>
+                <p class="lead">Not it? Well, there was a chance... maybe this will impress?</p>
 
-                <p class="lead" id="instructions">10 random cards:</p>
+                <p class="lead">10 random cards:</p>
                 <div class="mini-deck-wrapper">
                     <?php foreach ($ten_cards as $card): ?>
                         <img src="{{ asset('images/cards/png/'.$card.'.png') }}">
                     <?php endforeach; ?>
                 </div>
 
-                <p class="lead" id="instructions">10 random cards bubble sorted:</p>
+                <p class="lead">10 random cards bubble sorted:</p>
                 <div class="mini-deck-wrapper">
                     <?php foreach ($ten_cards_sorted as $card): ?>
                         <img src="{{ asset('images/cards/png/'.$card.'.png') }}">
                     <?php endforeach; ?>
                 </div>
 
-                <p class="lead" id="instructions">Now let's never talk about bubble sort ever again...</p>
+                <p class="lead">Now let's never talk about bubble sort ever again...</p>
             </div>
         </div>
     </body>

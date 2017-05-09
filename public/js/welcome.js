@@ -35,9 +35,9 @@ function playTrick() {
         .fadeIn();
 
     // Raises and riffles the deck
-    setTimeout((function() {
+    setTimeout(function() {
         riffleDeck();
-    }), 8000);
+    }, 8000);
 
     // Reveal buttons
     $('#trick-buttons').delay(14000).fadeTo(1000, 1);
@@ -55,20 +55,29 @@ function playTrick() {
  */
 function riffleDeck() {
     // Raise deck
+    $("#card > :nth-child(1)").show();  // Make first card visible
     $("#deck-top").animate({ borderTopLeftRadius: 10, borderTopRightRadius: 10 }, 1300);
     $("#card").animate({ height: 100 }, 1300);
 
     // Riffle deck
-    setTimeout((function() {
+    setTimeout(function() {
         $("#deck-bottom").animate({ height: 75 }, 1000);
         $("#deck-top").animate({ borderTopLeftRadius: 0, borderTopRightRadius: 0, height: 0 }, 1000, function() {
             $("#card").css("height", "0");
         });
-    }), 4000);
+        for (i = 1; i < 52; i++) {
+            setTimeout(function(i) {
+                $("#card > :nth-child("+i+")").hide();
+                $("#card > :nth-child("+(i+1)+")").show();
+            }, 925/51*i, i);
+        }
+    }, 4000);
 
     // Reset deck
     $("#deck-top").css("height", "75px");
     $("#deck-bottom").css("height", "0");
+    $("#card > :nth-child(52)").hide();
+    $("#card > :nth-child(1)").show();
 }
 
 
@@ -86,9 +95,9 @@ $('#trick-button-1').click(function() {
     // Hide buttons
     $('#trick-buttons').hide();
 
-    setTimeout((function() {
+    setTimeout(function() {
         riffleDeck();
-    }), 500);
+    }, 500);
 
     $('#trick-buttons').delay(6000).fadeTo(1000, 1);
 });
@@ -96,7 +105,7 @@ $('#trick-button-1').click(function() {
 // Makes second trick button load the results
 $('#trick-button-2').click(function() {
     // Load results page
-    loadCell('#trick-cell', '#results-cell', function() { $('#results-card').fadeTo(1000, 1); });
+    loadCell('#trick-cell', '#results-cell', function() { $('#results-card').delay(1000).fadeTo(1500, 1); });
 });
 
 // Makes start button load the trick
