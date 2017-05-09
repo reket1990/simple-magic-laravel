@@ -20,6 +20,8 @@ $('#start-button').click(function() {
  * Main function that plays the trick
  */
 function playTrick() {
+    // TODO: Optimize displaying of instructions to be simpler with an array of strings
+
     // Display instructions
     $("#instructions")
         .delay(2000)

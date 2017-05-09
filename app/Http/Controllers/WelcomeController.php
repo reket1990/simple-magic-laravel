@@ -17,6 +17,9 @@ class WelcomeController extends Controller
     |
     */
 
+    // TODO: Make card / deck classes instead of putting everything in the
+    //       controller and using strings
+
     var $cards = [
         '2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', 'Tc', 'Jc', 'Qc', 'Kc', 'Ac',
         '2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', 'Td', 'Jd', 'Qd', 'Kd', 'Ad',
@@ -40,7 +43,7 @@ class WelcomeController extends Controller
     // Start: Bubble sort helpers
     function card_value($card) {
         $numerals = [
-            '2' => 2, '3' => 3, '4' => 4, '5' => '5', '6' => 6,
+            '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
             '7' => 7, '8' => 8, '9' => 9, 'T' => 10, 'J' => 11,
             'Q' => 12, 'K' => 13, 'A' => 14
         ];
@@ -55,6 +58,22 @@ class WelcomeController extends Controller
     }
     // End: Bubble sort helpers
 
+    // Function that converts a deck of cards to an array of card assets
+    function deck_to_string($deck) {
+        $numerals = [
+            '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6',
+            '7' => '7', '8' => '8', '9' => '9', 'T' => '10', 'J' => 'jack',
+            'Q' => 'queen', 'K' => 'king', 'A' => 'ace'
+        ];
+        $suits = ['c' => 'clubs', 'd' => 'diamond', 'h' => 'hearts', 's' => 'spades'];
+
+        $deck_of_names = [];
+        foreach ($deck as $card) {
+            array_push($deck_of_names, $numerals[$card[0]] . '_of_' . $suits[$card[1]]);
+        }
+        return $deck_of_names;
+    }
+
 
     // Function that handles the welcome page
     public function index()
@@ -68,8 +87,8 @@ class WelcomeController extends Controller
         $ten_cards_sorted = $this->bubble_sort($ten_cards);
 
         return view('welcome')
-            ->with('cards', $cards)
-            ->with('ten_cards', $ten_cards)
-            ->with('ten_cards_sorted', $ten_cards_sorted);
+            ->with('cards', $this->deck_to_string($cards))
+            ->with('ten_cards', $this->deck_to_string($ten_cards))
+            ->with('ten_cards_sorted', $this->deck_to_string($ten_cards_sorted));
     }
 }
