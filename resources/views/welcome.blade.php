@@ -11,6 +11,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <!-- TODO: Put this as a sass file and minify -->
         <style>
             /* Base Formatting */
             html,
@@ -45,6 +46,11 @@
                 text-shadow: none;
                 background-color: #fff;
                 font-weight: bold;
+            }
+
+            /* Effects */
+            .opaque {
+                opacity: 0;
             }
 
             /* Instructions two lines on mobile */
@@ -93,9 +99,28 @@
                 );
             }
 
-            /* Effects */
-            .opaque {
-                opacity: 0;
+            /* Results card */
+            #results-card {
+                margin-bottom: 27px;
+            }
+            #results-card img {
+                background-color: white;
+                border-radius: 10px;
+                padding: 10px;
+            }
+
+            /* Bubble sort cards */
+            .mini-deck-wrapper {
+                margin-bottom: 27px;
+                margin-left: 80px;  /* offset stacking of cards to center */
+            }
+            .mini-deck-wrapper img {
+                width: 111px;
+                margin-left: -80px;  /* stack cards */
+                background-color: white;
+                border-radius: 5px;
+                padding: 5px;
+                border: 1px solid black;
             }
         </style>
     </head>
@@ -120,9 +145,39 @@
                     </div>
                 </div>
                 <p class="lead opaque" id="trick-buttons">
-                    <a href="#" class="btn btn-lg" id="trick-button-1">Got One</a>
-                    <a href="#" class="btn btn-lg" id="trick-button-2">Again</a>
+                    <a href="#" class="btn btn-lg" id="trick-button-1">Again</a>
+                    <a href="#" class="btn btn-lg" id="trick-button-2">Got One</a>
                 </p>
+            </div>
+
+            <div class="page-wrapper-cell hidden" id="results-cell">
+                <p class="lead" id="results-text">Is this your card?</p>
+
+                <div class="opaque" id="results-card"><img src="{{ asset('images/cards/png/'.$cards[51].'.png') }}"></div>
+
+                <p class="lead">
+                    <a href="#" class="btn btn-lg" id="results-button">Next</a>
+                </p>
+            </div>
+
+            <div class="page-wrapper-cell hidden" id="bubble-sort-cell">
+                <p class="lead" id="instructions">Well, if that didn't work, maybe this will impress?</p>
+
+                <p class="lead" id="instructions">10 random cards:</p>
+                <div class="mini-deck-wrapper">
+                    <?php foreach ($ten_cards as $card): ?>
+                        <img src="{{ asset('images/cards/png/'.$card.'.png') }}">
+                    <?php endforeach; ?>
+                </div>
+
+                <p class="lead" id="instructions">10 random cards bubble sorted:</p>
+                <div class="mini-deck-wrapper">
+                    <?php foreach ($ten_cards_sorted as $card): ?>
+                        <img src="{{ asset('images/cards/png/'.$card.'.png') }}">
+                    <?php endforeach; ?>
+                </div>
+
+                <p class="lead" id="instructions">Now let's never talk about bubble sort ever again...</p>
             </div>
         </div>
     </body>

@@ -4,16 +4,16 @@
 
 
 /*
- * Makes start button load the trick
+ * Function that hides a cell and loads another
  */
-$('#start-button').click(function() {
-    $('#home-cell').fadeOut(
+function loadCell(toUnload, toLoad, complete) {
+    $(toUnload).fadeOut(
         800,
         function() {
-            $('#trick-cell').fadeIn(800, playTrick()).removeClass('hidden').css("display","table-cell");
+            $(toLoad).fadeIn(800, complete).removeClass('hidden').css("display","table-cell");
         }
     );
-});
+}
 
 
 /*
@@ -38,21 +38,6 @@ function playTrick() {
     setTimeout((function() {
         riffleDeck();
     }), 8000);
-
-    // Add functions to buttons
-    $('#trick-button-1').click(function() {
-        console.log("trick complete");
-    });
-    $('#trick-button-2').click(function() {
-        // Hide buttons
-        $('#trick-buttons').hide();
-
-        setTimeout((function() {
-            riffleDeck();
-        }), 500);
-
-        $('#trick-buttons').delay(6000).fadeTo(1000, 1);
-    });
 
     // Reveal buttons
     $('#trick-buttons').delay(14000).fadeTo(1000, 1);
@@ -85,3 +70,36 @@ function riffleDeck() {
     $("#deck-top").css("height", "75px");
     $("#deck-bottom").css("height", "0");
 }
+
+
+/*
+ * Add functions to all the command buttons
+ */
+
+// Makes start button load the trick
+$('#start-button').click(function() {
+    loadCell('#home-cell', '#trick-cell', playTrick());
+});
+
+// Makes first trick button riffle cards again
+$('#trick-button-1').click(function() {
+    // Hide buttons
+    $('#trick-buttons').hide();
+
+    setTimeout((function() {
+        riffleDeck();
+    }), 500);
+
+    $('#trick-buttons').delay(6000).fadeTo(1000, 1);
+});
+
+// Makes second trick button load the results
+$('#trick-button-2').click(function() {
+    // Load results page
+    loadCell('#trick-cell', '#results-cell', function() { $('#results-card').fadeTo(1000, 1); });
+});
+
+// Makes start button load the trick
+$('#results-button').click(function() {
+    loadCell('#results-cell', '#bubble-sort-cell', null);
+});

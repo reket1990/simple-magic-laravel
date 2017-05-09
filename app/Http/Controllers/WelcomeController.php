@@ -65,7 +65,7 @@ class WelcomeController extends Controller
             '7' => '7', '8' => '8', '9' => '9', 'T' => '10', 'J' => 'jack',
             'Q' => 'queen', 'K' => 'king', 'A' => 'ace'
         ];
-        $suits = ['c' => 'clubs', 'd' => 'diamond', 'h' => 'hearts', 's' => 'spades'];
+        $suits = ['c' => 'clubs', 'd' => 'diamonds', 'h' => 'hearts', 's' => 'spades'];
 
         $deck_of_names = [];
         foreach ($deck as $card) {
